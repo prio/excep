@@ -1,0 +1,2 @@
+%{"timex": {:git, "git://github.com/bitwalker/timex.git", "30e184c1f4f4c494badcff07ff1b4a3feffd3308", []},
+  "window": {:git, "git://github.com/prio/exwindow.git", "ddfddbd21cc019d60f6293d7c8b19c416817f064", []}}

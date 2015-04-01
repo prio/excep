@@ -26,6 +26,7 @@ defmodule Cep.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    []
+    [{:window, github: "prio/exwindow"},
+     {:timex, github: "bitwalker/timex"}]
   end
 end
