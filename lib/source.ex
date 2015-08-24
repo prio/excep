@@ -1,9 +1,9 @@
-defmodule Source do
+defmodule FakeTickerSource do
   use GenServer
   use Timex
 
-  def start_link(events, interval, symbol) do
-    GenServer.start_link(__MODULE__, {events, interval, symbol})
+  def start_link(interval, symbol) do
+    GenServer.start_link(__MODULE__, {interval, symbol})
   end
 
   def price do
@@ -24,7 +24,8 @@ defmodule Source do
   end
 
   def handle_info(event, state) do
-    GenEvent.sync_notify(state.events, event)
+    Cep.Source.send(event)
+
     ups = %{ state | time: state.time + state.interval/1000}
     start_timer(ups)
     {:noreply, ups}

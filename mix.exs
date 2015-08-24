@@ -27,6 +27,8 @@ defmodule Cep.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [{:window, github: "prio/exwindow"},
-     {:timex, github: "bitwalker/timex"}]
+     {:timex, github: "bitwalker/timex"},
+     {:czmq, github: "gar1t/erlang-czmq", compile: "./configure; make"},
+   ]
   end
 end

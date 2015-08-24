@@ -1,8 +1,20 @@
 defmodule Broker do
-  use GenEvent
+  use GenServer
 
-  def init(factory) do
-    {:ok, factory}
+  def start_link(addr) do
+    GenServer.start_link(__MODULE__, {addr}, [])
+  end
+
+  def init(addr) do
+    {:ok, ctx} = :czmq.start_link()
+    source_socket = :czmq.zsocket_new(ctx, :czmq_const.zmq_rep)
+    :ok = :czmq.zsocket_bind(source_socket, addr)
+
+    {:ok, ctx} = :czmq.start_link()
+    socket = :czmq.zsocket_new(ctx, :czmq_const.zmq_rep)
+    :ok = :czmq.zsocket_bind(socket, addr)
+
+    {:ok, {socket, ctx}}
   end
 
   def handle_event(event = {:tick, {symbol, _, _}}, factory) do
